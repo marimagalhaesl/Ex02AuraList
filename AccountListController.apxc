@@ -1,0 +1,12 @@
+public class AccountListController {
+    
+    @AuraEnabled //para poder chamar no lightning component
+    public static List<Account> getAccountsByName() {
+        return [SELECT Id, Name, AnnualRevenue, Rating, CreatedDate FROM Account ORDER BY Name];
+    }
+    
+    @AuraEnabled
+    public static List<Account> getAccountsByCreatedDate() {
+        return [SELECT Id, Name, CreatedDate FROM Account ORDER BY CreatedDate];
+    }
+}
