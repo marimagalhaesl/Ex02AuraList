@@ -1,0 +1,26 @@
+<aura:component controller="AccountListController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    
+    <aura:attribute name="accountsListByName" type="Account[]"></aura:attribute>
+    <aura:attribute name="accountsListByCreatedDate" type="Account[]"></aura:attribute>
+    <aura:attribute name="Columns" type="List"></aura:attribute>   
+    
+    <aura:handler name="init" value="{!this}" action="{!c.acctsAction}"/>
+    
+    <lightning:accordion aura:id="accordion">
+        
+        <!--Base component for displaying data-->
+        <lightning:card iconName="standard:account" title="Accounts">
+            
+            <lightning:accordionSection name="Contas Ordenadas Por Nome" label="Contas Ordenadas Por Nome">
+                <!--is another Base Lightning Component that will display the list of Accounts.-->
+                <lightning:datatable data="{! v.accountsListByName }" columns="{! v.Columns }" keyField="Id" hideCheckboxColumn="true"/>
+            </lightning:accordionSection>
+            
+            <lightning:accordionSection name="Contas Ordenadas Por Created Date" label="Contas Ordenadas Por Created Date">
+                <lightning:datatable data="{! v.accountsListByCreatedDate }" columns="{! v.Columns }" keyField="Id" hideCheckboxColumn="true"/>
+            </lightning:accordionSection>
+        </lightning:card>
+        
+    </lightning:accordion>
+    
+</aura:component>
