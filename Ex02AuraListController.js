@@ -10,13 +10,12 @@
         var action1 = component.get("c.getAccountsByName");
         
         //Sets the callback function that is executed after an Apex action returns.
-        //setCallback (Object scope, function callback, String name)
-        //SCOPE - The scope in which the function is executed. Always set this parameter to the keyword this.
-        //CALLBACK - The callback to invoke after the Apex action returns.
-        //NAME - Defaults to "ALL" which registers callbacks for the "SUCCESS", "ERROR", and "INCOMPLETE" states.
         action1.setCallback(this, function(data) {
             
-            component.set("v.accountsListByName", data.getReturnValue());
+            var state = data.getState();
+            if(state === "SUCCESS") {
+                component.set("v.accountsListByName", data.getReturnValue());   
+            }
             
         });
         
@@ -27,11 +26,12 @@
         
         
         var action2 = component.get("c.getAccountsByCreatedDate");
-
+        
         action2.setCallback(this, function(data) {
-            
-            component.set("v.accountsListByCreatedDate", data.getReturnValue());
-            
+            var state = data.getState();
+            if(state === "SUCCESS") {
+                component.set("v.accountsListByCreatedDate", data.getReturnValue());
+            }
         });
         
         $A.enqueueAction(action2);
